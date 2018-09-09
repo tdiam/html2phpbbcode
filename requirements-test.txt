@@ -1,0 +1,3 @@
+html2bbcode==2.3.3
+regex==2018.8.29
+pytest==3.8.0
