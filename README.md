@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/tdiam/html2phpbbcode.svg?branch=master)](https://travis-ci.org/tdiam/html2phpbbcode)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-orange.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 # HTML2PHPBBCode
 
 HTML2PHPBBCode is a Python 3 package that can be used to parse HTML code and convert it to phpBB-compatible BBCode.
