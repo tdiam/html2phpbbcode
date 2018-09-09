@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/tdiam/html2phpbbcode.svg?branch=master)](https://travis-ci.org/tdiam/html2phpbbcode)
+[![PyPI version](https://badge.fury.io/py/html2phpbbcode.svg)](https://badge.fury.io/py/html2phpbbcode)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-orange.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 # HTML2PHPBBCode
@@ -41,16 +42,16 @@ This package differs from html2bbcode in the following:
 
 ### Installing
 
-Install dependencies with:
+The package is available at [PyPI](https://pypi.org/project/html2phpbbcode/) and can be installed with the following command:
 
 ```bash
-pip install -r requirements.txt
+pip install html2phpbbcode
 ```
 
-Then install the package:
+Installing from source is also an option:
 
 ```bash
-python setup.py install
+python3 setup.py install
 ```
 
 ### Testing
