@@ -10,7 +10,7 @@ with open(os.path.join(BASE_DIR, "README.md"), encoding="utf-8") as fp:
 
 setup(
     name="html2phpbbcode",
-    version="0.1.0",
+    version="0.1.1",
     packages=["html2phpbbcode"],
     license="BSD",
     url="https://github.com/tdiam/html2phpbbcode",
