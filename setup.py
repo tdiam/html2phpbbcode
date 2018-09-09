@@ -10,7 +10,7 @@ with open(os.path.join(BASE_DIR, "README.md"), encoding="utf-8") as fp:
 
 setup(
     name="html2phpbbcode",
-    version="0.1.2",
+    version="0.1.3",
     packages=["html2phpbbcode"],
     license="BSD",
     url="https://github.com/tdiam/html2phpbbcode",
@@ -21,8 +21,8 @@ setup(
     long_description_content_type="text/markdown",
     package_data={"html2phpbbcode": ["data/defaults.conf"]},
     install_requires=[
-        "html2bbcode==2.3.3",
-        "regex==2018.8.29",
+        "html2bbcode",
+        "regex",
     ],
     classifiers=[
         "Topic :: Utilities",
