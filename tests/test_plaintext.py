@@ -7,7 +7,7 @@ from html2phpbbcode.parser import HTML2PHPBBCode
 parser = HTML2PHPBBCode()
 
 @pytest.mark.parametrize("html,bbcode", [
-    ("Hello\nWorld\n", "Hello\nWorld\n"),
+    ("Hello\nWorld\n", "Hello World "),
     ("καλημέρα kalimera 1 2 3", "καλημέρα kalimera 1 2 3"),
 ])
 def test_plaintext_same_as_bbcode(html, bbcode):

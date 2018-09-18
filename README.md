@@ -39,6 +39,7 @@ This package differs from html2bbcode in the following:
 * `<font>`'s `size` attribute handling has been changed so that it maps to reasonable BBCode size values.
 * If the `href` attribute of an `<a>` link uses the `mailto:` protocol, then the `[email]` BBCode tag is used.
 * If the `href` attribute of an `<a>` link is neither an email nor a valid http/https URL, the link is converted to plain-text in BBCode.
+* The parser removes excessive whitespace such as newlines between tags: `<p>Hello</p>\n<p>World</p>` *(TODO: Use the [W3C spec](https://www.w3.org/TR/css-text-3/) rules)*
 
 ### Installing
 

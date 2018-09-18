@@ -70,3 +70,22 @@ class HTML2PHPBBCode(HTML2BBCode):
             if self.config.has_option(tag, "expand"):
                 self.expand_endtags(tag)
             self.attrs[tag].pop()
+    
+    def handle_data(self, data):
+        """Remove excessive whitespace from text nodes
+        
+        TODO: Use the CSS Text Module Level 3 Working Draft rules for
+        inline formatting contexts to process whitespace.
+        Link: https://www.w3.org/TR/css-text-3/#white-space-processing"""
+
+        """If there is leading whitespace, replace it with a single space"""
+        left = data.lstrip()
+        if left != data:
+            data = " " + left
+        """Same for trailing whitespace"""
+        right = data.rstrip()
+        if right != data:
+            data = right + " "
+        """Replace new lines with spaces"""
+        data = data.replace("\n", " ")
+        self.data.append(data)
