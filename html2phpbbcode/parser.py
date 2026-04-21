@@ -1,7 +1,74 @@
+from configparser import RawConfigParser
+from collections import defaultdict
+from html.parser import HTMLParser
 from os.path import join, dirname
 
-from html2bbcode.parser import HTML2BBCode, Attributes
 from .validators import is_valid_url, is_valid_mail
+
+
+class Attributes(dict):
+    def __missing__(self, name):
+        return ''
+
+
+class ConfigParser(RawConfigParser):
+    def get(self, section, option):
+        value = super().get(section, option)
+        return value.replace('\\n', '\n')
+
+
+class HTML2BBCode(HTMLParser):
+    def __init__(self, config=None):
+        HTMLParser.__init__(self)
+        self.config = ConfigParser(allow_no_value=True)
+        if config:
+            self.config.read(config)
+
+    def handle_starttag(self, tag, attrs):
+        if self.config.has_section(tag):
+            self.attrs[tag].append(dict(attrs))
+            self.data.append(
+                self.config.get(tag, 'start') % Attributes(attrs or {}))
+            if self.config.has_option(tag, 'expand'):
+                self.expand_starttags(tag)
+
+    def handle_endtag(self, tag):
+        if self.config.has_section(tag):
+            self.data.append(self.config.get(tag, 'end'))
+            if self.config.has_option(tag, 'expand'):
+                self.expand_endtags(tag)
+            self.attrs[tag].pop()
+
+    def handle_data(self, data):
+        self.data.append(data)
+
+    def feed(self, data):
+        self.data = []
+        self.attrs = defaultdict(list)
+        HTMLParser.feed(self, data)
+        return ''.join(self.data)
+
+    def expand_starttags(self, tag):
+        for expand in self.get_expands(tag):
+            if expand in self.attrs[tag][-1]:
+                self.data.append(
+                    self.config.get(expand, 'start') % self.attrs[tag][-1])
+
+    def expand_endtags(self, tag):
+        for expand in reversed(self.get_expands(tag)):
+            if expand in self.attrs[tag][-1]:
+                self.data.append(
+                    self.config.get(expand, 'end') % self.attrs[tag][-1])
+
+    def get_expands(self, tag):
+        expands = self.config.get(tag, 'expand').split(',')
+        return [x.strip() for x in expands]
+
+    def handle_entityref(self, name):
+        self.data.append('&{};'.format(name))
+
+    def handle_charref(self, name):
+        self.data.append('&#{};'.format(name))
 
 def is_mailto_url(url):
     return url.startswith("mailto:") and is_valid_mail(url[7:])
